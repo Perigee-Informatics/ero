@@ -10,6 +10,7 @@ use App\Models\MstFedProvince;
 use App\Base\Traits\ComboField;
 use App\Base\Traits\Conversion;
 use App\Models\MstFedLocalLevel;
+use App\Models\MstSchool;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
@@ -95,6 +96,9 @@ class BaseModel extends  Model
     }
     public function yearEntity(){
         return $this->belongsTo(MstYear::class,'program_year','id');
+    }
+    public function schoolEntity(){
+        return $this->belongsTo(MstSchool::class,'school_id','id');
     }
     public function classEntity(){
         return $this->belongsTo(MstClass::class,'class_id','id');

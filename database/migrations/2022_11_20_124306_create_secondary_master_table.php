@@ -57,6 +57,7 @@ class CreateSecondaryMasterTable extends Migration
             $table->unsignedSmallInteger('no_of_copies');
             $table->datetime('date_time');
             $table->unsignedSmallInteger('assigned_by');
+            $table->timestamps();
 
             $table->foreign('school_id','fk_review_profile_master_school_id')->references('id')->on('mst_schools');
             $table->foreign('class_id','fk_review_profile_master_class_id')->references('id')->on('mst_class');

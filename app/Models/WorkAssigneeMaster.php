@@ -2,20 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Base\BaseModel;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 
-class MstClass extends BaseModel
+class WorkAssigneeMaster extends BaseModel
 {
     use CrudTrait;
-
-    public static $subjects=[
-        1=>'English',
-        2=>'Science',
-        3=>'Mathematics',
-        4=>'Nepali',
-        5=>'Social Study',
-    ];
 
     /*
     |--------------------------------------------------------------------------
@@ -23,7 +16,7 @@ class MstClass extends BaseModel
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'mst_class';
+    protected $table = 'work_assignee_master';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -36,6 +29,11 @@ class MstClass extends BaseModel
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+
+    public function assignedByEntity()
+    {
+        return $this->belongsTo(User::class,'assigned_by','id');
+    }
 
     /*
     |--------------------------------------------------------------------------

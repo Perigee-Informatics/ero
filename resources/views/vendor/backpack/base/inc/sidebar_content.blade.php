@@ -15,6 +15,11 @@
 
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="la la-dashboard nav-icon"></i> {{ trans('backpack::base.dashboard') }}</a></li>
 <hr class="hr-line m-2">
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('mstschool') }}'><i class='nav-icon la la-cogs'></i> Schools</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('reviewprofile') }}'><i class='nav-icon la la-cogs'></i> Review Profiles</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('questiongroup') }}'><i class='nav-icon la la-cogs'></i> Question Groups</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('workassigneemaster') }}'><i class='nav-icon la la-cogs'></i> Work Assignment</a></li>
+<hr class="hr-line m-2">
 <li class="nav-item nav-dropdown">
 	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-gears"></i>{{ trans('menu.primary') }}</a>
 	<ul class="nav-dropdown-items" style="overflow-x:hidden">
@@ -26,11 +31,6 @@
 		<li class='nav-item'><a class='nav-link' href='/admin/mstgender'><i class='nav-icon la la-compass'></i> {{trans('menu.gender')}}</a></li>
 	</ul>
 </li>
+
 <hr class="hr-line m-2">
 <li class='nav-item'><a class='nav-link' href='/admin/user'><i class='nav-icon la la-users'></i> Users</a></li>
-
-
-
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('mstschool') }}'><i class='nav-icon la la-question'></i> MstSchools</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('reviewprofile') }}'><i class='nav-icon la la-question'></i> ReviewProfiles</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('questiongroup') }}'><i class='nav-icon la la-question'></i> QuestionGroups</a></li>
