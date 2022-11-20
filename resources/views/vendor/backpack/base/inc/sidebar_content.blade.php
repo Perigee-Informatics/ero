@@ -30,3 +30,7 @@
 <li class='nav-item'><a class='nav-link' href='/admin/user'><i class='nav-icon la la-users'></i> Users</a></li>
 
 
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('mstschool') }}'><i class='nav-icon la la-question'></i> MstSchools</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('reviewprofile') }}'><i class='nav-icon la la-question'></i> ReviewProfiles</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('questiongroup') }}'><i class='nav-icon la la-question'></i> QuestionGroups</a></li>

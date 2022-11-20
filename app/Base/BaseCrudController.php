@@ -83,9 +83,10 @@ class BaseCrudController extends CrudController
     protected function addPlainHtml()
     {
         return   [
-            'type' => 'custom_html',
-            'name'=>'plain_html_1',
-            'value' => '<br>',
+            'type' => 'plain_html',
+            'name'=>'',
+            'fake'=>true,
+            'value' => '<div class="col-md-12"></div>',
         ];
     }
 
@@ -147,7 +148,7 @@ class BaseCrudController extends CrudController
             'name' => 'province_id',
             'type' => 'select2',
             'entity'=>'provinceEntity',
-            'attribute' => 'name_en',
+            'attribute' => 'name_lc',
             'model'=>MstFedProvince::class,
             'label' => trans('common.fed_province'),
             'options'   => (function ($query) {

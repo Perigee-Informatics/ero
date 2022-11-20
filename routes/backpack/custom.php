@@ -20,4 +20,7 @@ Route::group([
 
     Route::get('dashboard', 'DashboardCrudController@index')->name('dashboard');
     
+    Route::crud('mstschool', 'MstSchoolCrudController');
+    Route::crud('reviewprofile', 'ReviewProfileCrudController');
+    Route::crud('questiongroup', 'QuestionGroupCrudController');
 }); // this should be the absolute last line of this file

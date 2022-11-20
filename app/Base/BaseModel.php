@@ -2,6 +2,8 @@
 namespace App\Base;
 
 use App\Models\Country;
+use App\Models\MstYear;
+use App\Models\MstClass;
 use App\Models\AppClient;
 use App\Models\MstFedDistrict;
 use App\Models\MstFedProvince;
@@ -90,6 +92,12 @@ class BaseModel extends  Model
 
     public function localLevelEntity(){
         return $this->belongsTo(MstFedLocalLevel::class,'local_level_id','id');
+    }
+    public function yearEntity(){
+        return $this->belongsTo(MstYear::class,'program_year','id');
+    }
+    public function classEntity(){
+        return $this->belongsTo(MstClass::class,'class_id','id');
     }
    
 
