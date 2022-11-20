@@ -7,13 +7,7 @@
   @include(backpack_view('inc.main_header'))
 
   <div class="app-body">
-  @include(backpack_view('inc.sidebar'))
 
-    {{-- <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <a href="/"><i class="la la-sitemap"></i>  Graphical</a>
-      <a href="/public/list-members"><i class="la la-table"></i>  Tabular</a>
-    </div> --}}
     <main class="main pt-4 pl-3">
 
       {{-- <div class="pl-3"> --}}

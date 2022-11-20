@@ -23,7 +23,7 @@ use App\Http\Controllers\Api\DistrictLocalLevelController;
 */
 
 Route::get('/', function(){
-    return redirect(url('public/apply-for-membership/create'));
+    return redirect(backpack_url('dashboard'));
 });
 // Route::get('/admin', function(){
 //     return view('errors.503');
@@ -49,7 +49,6 @@ Route::get('/local_level/{id}', [DependentDropdownController::class,'getlocal_le
 Route::get('get-nepal-map-data', [DashboardCrudController::class,'getNepalMapdata']);
 Route::get('get-province-data', [DashboardCrudController::class,'getProvinceData']);
 Route::get('get-district-data', [DashboardCrudController::class,'getDistrictData']);
-Route::get('get-all-members', [DashboardCrudController::class,'getMembersData']);
 Route::get('get-geodata', [DashboardCrudController::class,'getGeoData']);
 
 // Route::get('member/{member_id}/print-profile', [MemberCrudController::class,'printProfile']);

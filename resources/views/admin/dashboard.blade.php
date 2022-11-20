@@ -142,7 +142,7 @@
             </section>
 
 
-            <!-- Gender wise Distribution -->
+            {{-- <!-- Gender wise Distribution -->
             <section id="gender_card" class="parallax-section">
                 <div class="container">
                     <div class="row">
@@ -220,7 +220,7 @@
                     
                     </div>
                 </div>
-            </section> 
+            </section>  --}}
     @endsection
 
     @push('after_scripts')

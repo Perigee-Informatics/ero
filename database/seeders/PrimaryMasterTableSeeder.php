@@ -21,15 +21,17 @@ class PrimaryMasterTableSeeder extends Seeder
         $this->mst_fed_local_level();
         $this->mst_nepali_month();
         $this->mst_gender();
+        $this->mst_years();
+        $this->mst_class();
     }
 
     private function mst_fed_province(){
         DB::table('mst_fed_province')->insert([
             array('id' => 1,'code' => '1','name_en' => 'State 1','name_lc' => 'प्रदेश १'),
-            array('id' => 2,'code' => '2','name_en' => 'State 2','name_lc' => 'प्रदेश २'),
+            array('id' => 2,'code' => '2','name_en' => 'Madhesh Pradesh','name_lc' => 'मधेश प्रदेश'),
             array('id' => 3,'code' => '3','name_en' => 'Bagmati','name_lc' => 'बागमती'),
             array('id' => 4,'code' => '4','name_en' => 'Gandaki','name_lc' => 'गण्डकी'),
-            array('id' => 5,'code' => '5','name_en' => 'State 5','name_lc' => 'प्रदेश ५'),
+            array('id' => 5,'code' => '5','name_en' => 'Lumbini','name_lc' => 'लुम्बिनी'),
             array('id' => 6,'code' => '6','name_en' => 'Karnali','name_lc' => 'कर्णाली'),
             array('id' => 7,'code' => '7','name_en' => 'SudurPashchim','name_lc' => 'सुदूरपश्चिम'),
 

@@ -1,7 +1,7 @@
 @extends(backpack_view('layouts.plain'))
 
 @section('content')
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mr-5 pr-5">
         <div class="col-12 col-md-8 col-lg-4">
             <h3 class="text-center mb-4">{{ trans('backpack::base.login') }}</h3>
             <div class="card">
@@ -59,7 +59,7 @@
             </div>
             @if (backpack_users_have_email())
                 {{-- <div class="text-center"><a href="{{ route('backpack.auth.password.reset') }}">{{ trans('backpack::base.forgot_your_password') }}</a></div> --}}
-                <div class="text-center"><a href="/" class="font-weight-bold"><i class="la la-angle-double-left"></i> Back To Dashboard</a></div>
+                {{-- <div class="text-center"><a href="/" class="font-weight-bold"><i class="la la-angle-double-left"></i> Back To Dashboard</a></div> --}}
             @endif
             @if (config('backpack.base.registration_open'))
                 <div class="text-center"><a href="{{ route('backpack.auth.register') }}">{{ trans('backpack::base.register') }}</a></div>

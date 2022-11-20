@@ -111,7 +111,7 @@ $.get("/get-nepal-map-data", function (data) {
     }).addTo(map);
     var nepal = L.geoJSON(provinceData);
     map.fitBounds(nepal.getBounds());
-    showMembersData(current_level,current_areaId);
+    // showMembersData(current_level,current_areaId);
     $("#country_button").html("<a onClick='resetToCountry()'>Nepal</span></a>");
     updateGeoData(current_level,current_areaId);
 });
@@ -210,7 +210,7 @@ function provinceOnClick(layer) {
             map.fitBounds(nepal.getBounds());
             info.update(layer.feature.properties);
             //show local level projects only on clicked province;
-            showMembersData(0,layer.feature.properties.Province);
+            // showMembersData(0,layer.feature.properties.Province);
 
             updateGeoData(layer.feature.properties.Province, layer.feature.properties.Level);
             current_level=0;
@@ -259,7 +259,7 @@ function districtOnClick(layer) {
             info.update(layer.feature.properties);
 
             //show local level projects only on clicked district;
-            showMembersData(1,layer.feature.properties.District);
+            // showMembersData(1,layer.feature.properties.District);
             // updateGeoData(layer.feature.properties.District, layer.feature.properties.Level);
             current_level=1;
             current_areaId=layer.feature.properties.District;
@@ -640,7 +640,7 @@ function resetToCountry() {
         var nepal = L.geoJSON(provinceData);
         map.fitBounds(nepal.getBounds());
         setTimeout(() => {
-            showMembersData(-1,-1);
+            // showMembersData(-1,-1);
         }, 500);
         updateGeoData(-1,-1);
         current_level=-1;
@@ -670,7 +670,7 @@ function resetToProvince(id) {
         var nepal = L.geoJSON(districtData);
         map.fitBounds(nepal.getBounds());
          //show local level projects only on clicked province;
-        showMembersData(0,id);
+        // showMembersData(0,id);
         updateGeoData(id, 0);
         current_level=0;
         current_areaId=id;
@@ -693,7 +693,7 @@ function resetToDistrict(id) {
         var nepal = L.geoJSON(locallevelData);
         map.fitBounds(nepal.getBounds());
         //show local level projects only on clicked district;
-        showMembersData(1,id);
+        // showMembersData(1,id);
         // updateGeoData(id, 1);
     });
 }
@@ -781,112 +781,9 @@ function updateGeoData(id,level){
             $('#total_local_level_count').text(data.count.total_local_level_count);
         }
 
-        // gender distribution
-        var gender_row_number_html = '';
-        var gender_name_html = '';
-        var gender_male_count_html = '';
-        var gender_female_count_html = '';
-        var gender_total_count_html = '';
-        var total_male_count = 0;
-        var total_female_count = 0;
-        var total_final_count = 0;
-
-
-        //data config for click event
-        var data_type = ''
-        if(data.level == -1)
-        {
-            data_type = 'province';
-        }
-        if(data.level == 0)
-        {
-            data_type = 'district';
-        }
-
-        $.each(data.gender_data.main, function (index,row) {
-            gender_row_number_html += '<div class="text-title">'+ ++index +'</div>'
-            gender_name_html += '<div class="text-title text-link"><a href="javascript:;" data-type="'+data_type+'" data-pid="'+row.province_id+'" data-did="'+row.district_id+'" onclick="filterData(this)">'+camelize(row.name_en)+'</a></div>'; 
-            gender_male_count_html += '<div class="text-blue text-value text-link"><a href="javascript:;" data-type="'+data_type+'" data-pid="'+row.province_id+'" data-did="'+row.district_id+'" data-gender_id="1" onclick="filterData(this)">'+row.male+'</a></div>';
-            gender_female_count_html += '<div class="text-blue text-value text-link"><a href="javascript:;" data-type="'+data_type+'" data-pid="'+row.province_id+'" data-did="'+row.district_id+'" data-gender_id="2" onclick="filterData(this)">'+row.female+'</a></div>';
-            gender_total_count_html += '<div class="text-blue text-value text-link"><a href="javascript:;" data-type="'+data_type+'" data-pid="'+row.province_id+'" data-did="'+row.district_id+'" onclick="filterData(this)">'+row.total+'</a></div>';
-
-            
-             //total_projects_count
-             total_male_count += row.male;
-             total_female_count += row.female;
-             total_final_count += row.total;
-        });
-
-        //for total 
-        gender_name_html += '<div class="text-blue text-value total-sum">Total</div>';
-        gender_male_count_html += '<div class="text-blue text-value total-sum">'+total_male_count+'</div>';
-        gender_female_count_html += '<div class="text-blue text-value total-sum">'+total_female_count+'</div>';
-        gender_total_count_html += '<div class="text-blue text-value total-sum">'+total_final_count+'</div>';
-
-
-        //for brand-card heading
-        if(data.level === -1){
-            $('#gender_card_title').html('Province wise gender distribution');
-            $('#age_card_title').html('Age wise Distribution');
-            $('#table_level_title').html('Province');
-            var gender_chart_title = 'Province wise gender distribution';
-            var age_chart_title = 'Age wise distribution';
-        }else if(data.level === 0 && data.gender_data.main.length > 0){
-            $('#gender_card_title').html( data.province_name+' (District wise gender distribution)');
-            $('#table_level_title').html('District');
-            var gender_chart_title = 'District wise gender distribution';
-            var age_chart_title = 'Age wise distribution';
-        }else if(data.level === 1 && data.gender_data.main.length > 0){
-            $('#gender_card_title').html( camelize(data.disrtict_name)+' (Locallevel wise gender distribution)');
-            $('#table_level_title').html('Local Level');
-            var chart_title = data.distict_name+' (Locallevel wise gender distribution)';
-        }else if(data.level === 2 && data.province_projects.main.length > 0){
-            $('#gender_card_title').html( data.province_projects.main[0].name_lc+'को आयोजना तथ्यांक');
-            $('#table_level_title').html('स्थानीय तह');
-            var chart_title = data.province_projects.main[0].name_lc+'को आयोजना';
-        }
-
-        $('#gender_row_number').html(gender_row_number_html);
-        $('#gender_name').html(gender_name_html);
-        $('#gender_male_count').html(gender_male_count_html);
-        $('#gender_female_count').html(gender_female_count_html);
-        $('#gender_total_count').html(gender_total_count_html);
-
-
-
-        // age wise distribution
-        var age_row_number_html = '';
-        var age_name_html = '';
-        var age_count_html = '';
-        var age_final_count = 0;
-
-        let j=0;
-        var set_province_id='';
-        if(data.level == 0 && data.gender_data.main.legth>0){
-            set_province_id=data.gender_data.main[0].province_id;
-        }
-        $.each(data.age_group_data.data, function (index,row) {
-            age_row_number_html += '<div class="text-title">'+ ++j +'</div>'
-            age_name_html += '<div class="text-title text-link"><a href="javascript:;" data-type="age_group" data-set_pid="'+set_province_id+'" data-key="'+index+'" onclick="filterData(this)">'+index+'</a></div>'; 
-            age_count_html += '<div class="text-blue text-value text-link"><a href="javascript:;" data-type="age_group" data-set_pid="'+set_province_id+'" data-key="'+index+'" onclick="filterData(this)">'+row+'</a></div>';
-            
-             //total_projects_count
-             age_final_count += row;
-        });
-
-        //for total 
-        age_name_html += '<div class="text-blue text-value total-sum">Total</div>';
-        age_count_html += '<div class="text-blue text-value total-sum">'+age_final_count+'</div>';
-
-        
-        $('#age_row_number').html(age_row_number_html);
-        $('#age_name').html(age_name_html);
-        $('#age_count').html(age_count_html);
-
-
          //for building province-projects-charts
-         createChart('gender_distribution_chart', gender_chart_title, data.gender_data.chart, 'bar');
-         createChart('age_distribution_chart', age_chart_title, data.age_group_data.chart, 'pie');
+        //  createChart('gender_distribution_chart', gender_chart_title, data.gender_data.chart, 'bar');
+        //  createChart('age_distribution_chart', age_chart_title, data.age_group_data.chart, 'pie');
 
     });
 }

@@ -24,8 +24,8 @@ return [
     // ----
 
     // Project name. Shown in the window title.
-    'project_name' => "AIT Alumni Association",
-    'project_name_small' => '<b class="text-danger">AAITA</b>',
+    'project_name' => "ERO",
+    'project_name_small' => '<b class="text-danger">ERO</b>',
 
     // When clicking on the admin panel's top-left logo/name,
     // where should the user be redirected?
@@ -73,7 +73,7 @@ return [
     // ------
 
     // Menu logo. You can replace this with an <img> tag if you have a logo.
-    'project_logo'   => '<img src="/img/aitaa_logo.png" class="pt-2" height="58px;" width="52px;">' ,
+    'project_logo'   => '<img src="/img/govt-logo.png" height="55px;" width="60px;">' ,
 
 
     // Show / hide breadcrumbs on admin panel pages.
