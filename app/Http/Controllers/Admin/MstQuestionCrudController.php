@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\MstClass;
 use App\Models\MstQuestion;
 use App\Models\QuestionGroup;
 use App\Models\ReviewProfile;
+use App\Models\MstSubQuestion;
 use App\Base\BaseCrudController;
+use App\Models\MstQuestionOption;
 use Illuminate\Support\Facades\DB;
 use Prologue\Alerts\Facades\Alert;
 use App\Http\Requests\MstQuestionRequest;
-use App\Models\MstQuestionOption;
-use App\Models\MstSubQuestion;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
@@ -95,6 +96,12 @@ class MstQuestionCrudController extends BaseCrudController
                 'attribute'=>'title_lc',
             ],
             [
+                'name'=>'subject',
+                'type'=>'select_from_array',
+                'label'=>trans('Subject'),
+                'options'=>MstClass::$subjects,
+            ],
+            [
                 'name'=>'question_no',
                 'type'=>'text',
                 'label'=>trans('Question no.'),
@@ -149,7 +156,7 @@ class MstQuestionCrudController extends BaseCrudController
                     'required' => 'required',
                 ],
                 'wrapper' => [
-                    'class' => 'form-group col-md-5',
+                    'class' => 'form-group col-md-6',
                 ],
             ],
        
@@ -160,6 +167,18 @@ class MstQuestionCrudController extends BaseCrudController
                 'entity'=>'groupEntity',
                 'model'=>QuestionGroup::class,
                 'attribute'=>'title_lc',
+                'attributes'=>[
+                    'required' => 'required',
+                ],
+                'wrapper' => [
+                    'class' => 'form-group col-md-6',
+                ],
+            ],
+            [
+                'name'=>'subject',
+                'type'=>'select_from_array',
+                'label'=>trans('Subject'),
+                'options'=>MstClass::$subjects,
                 'attributes'=>[
                     'required' => 'required',
                 ],
@@ -175,7 +194,7 @@ class MstQuestionCrudController extends BaseCrudController
                     'required' => 'required',
                 ],
                 'wrapper' => [
-                    'class' => 'form-group col-md-3',
+                    'class' => 'form-group col-md-4',
                 ],
             ],
             [

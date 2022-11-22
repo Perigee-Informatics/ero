@@ -30,6 +30,7 @@ class MstQuestionRequest extends FormRequest
             'group_id' => 'required',
             'question_no' => 'required',
             'title' => 'required',
+            'subject' => 'required',
         ];
     }
 

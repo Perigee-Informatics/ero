@@ -19,6 +19,7 @@ class CreateQuestionTable extends Migration
             $table->unsignedSmallInteger('question_no');
             $table->text('title');
             $table->unsignedSmallInteger('group_id'); 
+            $table->unsignedSmallInteger('subject'); 
             $table->boolean('has_sub_questions')->default(false); 
             $table->boolean('has_options')->default(false); 
             $table->timestamps();

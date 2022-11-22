@@ -43,6 +43,7 @@ class CreateSecondaryMasterTable extends Migration
             $table->string('program_name_lc',200);
             $table->string('program_name_en',200)->nullable();
             $table->unsignedSmallInteger('program_year');
+            $table->unsignedSmallInteger('subject');
             $table->unsignedSmallInteger('exam_duration');
             $table->timestamps();
 
