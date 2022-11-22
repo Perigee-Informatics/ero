@@ -38,7 +38,8 @@
         <script>
             function bpFieldInitCheckbox(element) {
                 var hidden_element = element.siblings('input[type=hidden]');
-                var id = 'checkbox_'+Math.floor(Math.random() * 1000000);
+                // var id = 'checkbox_'+Math.floor(Math.random() * 1000000);
+                var id = element.attr('id');
 
                 // make sure the value is a boolean (so it will pass validation)
                 if (hidden_element.val() === '') hidden_element.val(0);

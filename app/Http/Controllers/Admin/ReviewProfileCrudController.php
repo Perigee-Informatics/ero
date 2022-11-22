@@ -48,7 +48,7 @@ class ReviewProfileCrudController extends BaseCrudController
                 'label'=>trans('Program Year'),
                 'entity'=>'yearEntity',
                 'model'=>MstYear::class,
-                'attribute'=>'name_en',
+                'attribute'=>'code',
             ],
             [
                 'label' => trans('Exam Duration'),
