@@ -52,17 +52,21 @@ class CreateSecondaryMasterTable extends Migration
 
         Schema::create('work_assignee_master',function(Blueprint $table){
             $table->id();
+            $table->unsignedSmallInteger('review_profile_id');
             $table->unsignedSmallInteger('school_id');
             $table->unsignedSmallInteger('class_id');
             $table->unsignedSmallInteger('subject');
             $table->unsignedSmallInteger('no_of_copies');
             $table->datetime('date_time');
             $table->unsignedSmallInteger('assigned_by');
+            $table->unsignedSmallInteger('assigned_to');
             $table->timestamps();
 
-            $table->foreign('school_id','fk_review_profile_master_school_id')->references('id')->on('mst_schools');
-            $table->foreign('class_id','fk_review_profile_master_class_id')->references('id')->on('mst_class');
-            $table->foreign('assigned_by','fk_review_profile_master_assigned_by')->references('id')->on('users');
+            $table->foreign('review_profile_id','fk_work_assignee_master_review_profile_id')->references('id')->on('work_assignee_master');
+            $table->foreign('review_profile_id','fk_work_assignee_master_school_id')->references('id')->on('mst_schools');
+            $table->foreign('class_id','fk_work_assignee_master_class_id')->references('id')->on('mst_class');
+            $table->foreign('assigned_to','fk_work_assignee_master_assigned_to')->references('id')->on('users');
+            $table->foreign('assigned_by','fk_work_assignee_master_assigned_by')->references('id')->on('users');
         });
 
 

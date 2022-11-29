@@ -27,12 +27,14 @@ class WorkAssigneeMasterRequest extends FormRequest
     {
         $id_check = $this->request->get('id') ? ",".$this->request->get('id') : "";
         return [
+            'review_profile_id'=>'required',
             'school_id'=>'required',
             'subject'=>'required',
             'class_id'=>'required',
             'date_time'=>'required',
             'no_of_copies'=>'required',
             'assigned_by'=>'required',
+            'assigned_to'=>'required',
         ];
     }
 

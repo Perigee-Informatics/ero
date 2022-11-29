@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\MstClass;
 use App\Models\MstSchool;
+use App\Models\ReviewProfile;
 use App\Base\BaseCrudController;
 use App\Models\WorkAssigneeMaster;
 use App\Http\Requests\WorkAssigneeMasterRequest;
@@ -36,6 +37,14 @@ class WorkAssigneeMasterCrudController extends BaseCrudController
     {
         $cols = [
             $this->addRowNumberColumn(),
+            [
+                'name'=>'review_profile_id',
+                'type'=>'select',
+                'label'=>trans('Review Profile'),
+                'entity'=>'reviewProfileEntity',
+                'model'=>ReviewProfile::class,
+                'attribute'=>'program_name_lc',
+            ],
             [
                 'name'=>'school_id',
                 'type'=>'select',
@@ -76,6 +85,13 @@ class WorkAssigneeMasterCrudController extends BaseCrudController
                 'entity'=>'assignedByEntity',
                 'model'=>User::class,
             ],
+            [
+                'name'=>'assigned_to',
+                'type'=>'select',
+                'label'=>trans('Assigned To'),
+                'entity'=>'assignedToEntity',
+                'model'=>User::class,
+            ],
 
         ];
 
@@ -94,6 +110,20 @@ class WorkAssigneeMasterCrudController extends BaseCrudController
 
         $arr = [
             [
+                'name'=>'review_profile_id',
+                'type'=>'select2',
+                'label'=>trans('Review Profile'),
+                'entity'=>'reviewProfileEntity',
+                'model'=>ReviewProfile::class,
+                'attribute'=>'program_name_lc',
+                'attributes'=>[
+                    'required' => 'required',
+                ],
+                'wrapper' => [
+                    'class' => 'form-group col-md-6',
+                ],
+            ],
+            [
                 'name'=>'school_id',
                 'type'=>'select2',
                 'label'=>trans('School'),
@@ -104,7 +134,7 @@ class WorkAssigneeMasterCrudController extends BaseCrudController
                     'required' => 'required',
                 ],
                 'wrapper' => [
-                    'class' => 'form-group col-md-4',
+                    'class' => 'form-group col-md-6',
                 ],
             ],
             [
@@ -157,6 +187,20 @@ class WorkAssigneeMasterCrudController extends BaseCrudController
                 'type'=>'select2',
                 'label'=>trans('Assigned By'),
                 'entity'=>'assignedByEntity',
+                'model'=>User::class,
+                'attribute'=>'name',
+                'attributes'=>[
+                    'required' => 'required',
+                ],
+                'wrapper' => [
+                    'class' => 'form-group col-md-4',
+                ],
+            ],
+            [
+                'name'=>'assigned_to',
+                'type'=>'select2',
+                'label'=>trans('Assigned To'),
+                'entity'=>'assignedToEntity',
                 'model'=>User::class,
                 'attribute'=>'name',
                 'attributes'=>[

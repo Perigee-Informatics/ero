@@ -12,6 +12,7 @@ use App\Models\MstQuestionOption;
 use Illuminate\Support\Facades\DB;
 use Prologue\Alerts\Facades\Alert;
 use App\Http\Requests\MstQuestionRequest;
+use App\Models\WorkAssigneeMaster;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
@@ -337,5 +338,27 @@ class MstQuestionCrudController extends BaseCrudController
         }
 
         return $this->crud->performSaveAction($item->getKey());
+    }
+
+    //list questions
+    public function questionsLists()
+    {
+        $data=[];
+        if(backpack_user()->hasAnyRole('superadmin|admin') == false){
+            $data['question_lists'] = WorkAssigneeMaster::select('review_profile_id','subject','school_id','class_id')
+                                                    ->where('assigned_to',backpack_user()->id)
+                                                    ->groupBy('review_profile_id')
+                                                    ->groupBy('school_id')
+                                                    ->groupBy('class_id')
+                                                    ->groupBy('subject')
+                                                    ->get();
+        }else{
+            $data['question_lists'] = WorkAssigneeMaster::select('review_profile_id','subject','class_id')
+                                                    ->groupBy('review_profile_id')
+                                                    ->groupBy('class_id')
+                                                    ->groupBy('subject')
+                                                    ->get();
+        }
+        return view('admin.questions_lists',$data);
     }
 }

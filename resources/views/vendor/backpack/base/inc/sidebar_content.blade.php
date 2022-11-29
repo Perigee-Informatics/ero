@@ -12,8 +12,10 @@
 </style>
 
 <hr class="hr-line m-2">
-
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="la la-dashboard nav-icon"></i> {{ trans('backpack::base.dashboard') }}</a></li>
+<hr class="hr-line m-2">
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('questions-lists') }}"><i class="la la-cogs nav-icon"></i> {{ trans('Questions Lists') }}</a></li>
+@hasanyrole('admin|superadmin')
 <hr class="hr-line m-2">
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('mstquestion') }}'><i class='nav-icon la la-cogs'></i> MstQuestions</a></li>
 <hr class="hr-line m-2">
@@ -36,3 +38,4 @@
 
 <hr class="hr-line m-2">
 <li class='nav-item'><a class='nav-link' href='/admin/user'><i class='nav-icon la la-users'></i> Users</a></li>
+@endhasanyrole
