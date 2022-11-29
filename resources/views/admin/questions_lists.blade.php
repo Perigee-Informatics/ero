@@ -30,9 +30,13 @@
                             <td class="report-data">{{\App\Models\MstClass::$subjects[$ql->subject]}}</td>
                             <td class="report-data">{{$ql->classEntity->code}}</td>
                             <td class="report-data text-center">
-                                <a class="fancybox btn btn-success p-1 mr-2" data-type="ajax" data-src="{{'/public/member/'.$key.'/view-detailed-info'}} " title='View Detail'>
-                                    <i class="la la-eye text-white font-weight-bold"></i>
+                                @unlessrole('superadmin|admin')
+                                <a class="btn btn-success btn-sm mr-2 px-2 show-btn" 
+                                href="/admin/create-entry/{{$ql->review_profile_id}}/{{$ql->school_id}}/{{$ql->subject}}/{{$ql->class_id}}" 
+                                title='Create new entry'>
+                                    <i class="la la-plus text-white font-weight-bold"></i> New Entry
                                 </a>
+                                @endunlessrole
                             </td>
                         </tr>
                     

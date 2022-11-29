@@ -361,4 +361,9 @@ class MstQuestionCrudController extends BaseCrudController
         }
         return view('admin.questions_lists',$data);
     }
+
+    public function prepareSheet($program_id,$school_id,$subject,$class_id)
+    {
+        dd($program_id,$school_id,$subject,$class_id);
+    }
 }

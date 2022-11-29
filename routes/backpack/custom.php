@@ -27,4 +27,5 @@ Route::group([
     Route::crud('mstquestion', 'MstQuestionCrudController');
 
     Route::get('questions-lists', 'MstQuestionCrudController@questionsLists');
+    Route::get('create-entry/{program_id}/{school_id}/{subject}/{class}', 'MstQuestionCrudController@prepareSheet');
 }); // this should be the absolute last line of this file
