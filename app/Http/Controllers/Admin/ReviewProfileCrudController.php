@@ -24,7 +24,7 @@ class ReviewProfileCrudController extends BaseCrudController
     {
         CRUD::setModel(ReviewProfile::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/reviewprofile');
-        CRUD::setEntityNameStrings('Review Profile Master', 'Review Profile Master');
+        CRUD::setEntityNameStrings('Program Master', 'Program Master');
     }
 
     /**

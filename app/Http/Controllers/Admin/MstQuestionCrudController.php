@@ -84,7 +84,7 @@ class MstQuestionCrudController extends BaseCrudController
             [
                 'name'=>'review_profile_id',
                 'type'=>'select',
-                'label'=>trans('Review Profile'),
+                'label'=>trans('Program'),
                 'entity'=>'reviewProfileEntity',
                 'model'=>ReviewProfile::class,
                 'attribute'=>'program_name_lc',
@@ -171,7 +171,7 @@ class MstQuestionCrudController extends BaseCrudController
             [
                 'name'=>'review_profile_id',
                 'type'=>'select2',
-                'label'=>trans('Review Profile'),
+                'label'=>trans('Program'),
                 'entity'=>'reviewProfileEntity',
                 'model'=>ReviewProfile::class,
                 'attribute'=>'program_name_lc',
@@ -337,16 +337,20 @@ class MstQuestionCrudController extends BaseCrudController
             $this->data['entry'] = $this->crud->entry = $item;
             if($item){
                 if($request->has_sub_questions == '1' && isset($request->sub_questions)){
-                    foreach($request->sub_questions as $q){
-                        if($q !=''){
-                        MstSubQuestion::create(['question_id'=>$item->id,'title'=>$q]);
+
+                    foreach($request->sub_questions['serial'] as $key=>$q){
+                        if($request->sub_questions['title'][$key] !=''){
+                            MstSubQuestion::create_function(
+                                ['question_id'=>$item->id,'serial'=>$request->sub_questions['serial'][$key],'title'=>$request->sub_questions['title'][$key],'display_order'=>$request->sub_questions['display_order'][$key]]);
                         }
                     }
                 }
                 if($request->has_options == '1' && isset($request->options)){
-                    foreach($request->options as $q){
-                        if($q !=''){
-                        MstQuestionOption::create(['question_id'=>$item->id,'title'=>$q]);
+
+                    foreach($request->options['serial'] as $key=>$q){
+                        if($request->options['title'][$key] !=''){
+                            MstQuestionOption::create(
+                                ['question_id'=>$item->id,'serial'=>$request->options['serial'][$key],'title'=>$request->options['title'][$key],'display_order'=>$request->options['display_order'][$key]]);
                         }
                     }
                 }

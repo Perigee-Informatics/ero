@@ -20,7 +20,7 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('mstquestion') }}'><i class='nav-icon la la-cogs'></i> MstQuestions</a></li>
 <hr class="hr-line m-2">
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('mstschool') }}'><i class='nav-icon la la-cogs'></i> Schools</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('reviewprofile') }}'><i class='nav-icon la la-cogs'></i> Review Profiles</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('reviewprofile') }}'><i class='nav-icon la la-cogs'></i> Program</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('questiongroup') }}'><i class='nav-icon la la-cogs'></i> Question Groups</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('workassigneemaster') }}'><i class='nav-icon la la-cogs'></i> Work Assignment</a></li>
 <hr class="hr-line m-2">
