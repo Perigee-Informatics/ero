@@ -40,7 +40,7 @@ class WorkAssigneeMasterCrudController extends BaseCrudController
             [
                 'name'=>'review_profile_id',
                 'type'=>'select',
-                'label'=>trans('Review Profile'),
+                'label'=>trans('Program'),
                 'entity'=>'reviewProfileEntity',
                 'model'=>ReviewProfile::class,
                 'attribute'=>'program_name_lc',
@@ -112,7 +112,7 @@ class WorkAssigneeMasterCrudController extends BaseCrudController
             [
                 'name'=>'review_profile_id',
                 'type'=>'select2',
-                'label'=>trans('Review Profile'),
+                'label'=>trans('Program'),
                 'entity'=>'reviewProfileEntity',
                 'model'=>ReviewProfile::class,
                 'attribute'=>'program_name_lc',
