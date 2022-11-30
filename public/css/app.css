@@ -231,6 +231,10 @@ textarea[readonly] {
   background-color: #e2e2e2 !important;
 }
 
+.form-control[readonly] {
+  color: black;
+}
+
 legend {
   display: block;
   width: 100%;

@@ -377,7 +377,7 @@ class MstQuestionCrudController extends BaseCrudController
         $question_groups = [];
         foreach($questions as $qs)
         {
-            $question_groups[$qs->group_id][] =$qs;
+            $question_groups[$qs->groupEntity->title_lc][] =$qs;
         }
                                     
         $data['question_groups'] =$question_groups;
