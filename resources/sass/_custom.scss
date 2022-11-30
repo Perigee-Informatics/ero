@@ -365,3 +365,13 @@ li.nav-item {
     background-color: green !important;
   }
   
+  ._required:before {
+    content:" *";
+    color: red;
+    font-weight:bold;
+  }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

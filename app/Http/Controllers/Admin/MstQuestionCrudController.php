@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\MstClass;
+use App\Models\MstSchool;
 use App\Models\MstQuestion;
 use App\Models\QuestionGroup;
 use App\Models\ReviewProfile;
 use App\Models\MstSubQuestion;
 use App\Base\BaseCrudController;
 use App\Models\MstQuestionOption;
+use App\Models\WorkAssigneeMaster;
 use Illuminate\Support\Facades\DB;
 use Prologue\Alerts\Facades\Alert;
 use App\Http\Requests\MstQuestionRequest;
-use App\Models\WorkAssigneeMaster;
+use App\Models\MstGender;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
@@ -364,6 +366,23 @@ class MstQuestionCrudController extends BaseCrudController
 
     public function prepareSheet($program_id,$school_id,$subject,$class_id)
     {
-        dd($program_id,$school_id,$subject,$class_id);
+        $data['program_name'] = ReviewProfile::find($program_id)->program_name_lc;
+        $data['school_name'] = MstSchool::find($school_id)->name_lc;
+        $data['subject_name'] = MstClass::$subjects[$subject];
+        $data['class'] = MstClass::find($class_id)->code;
+        $data['gender'] = MstGender::all();
+        $questions = MstQuestion::where('review_profile_id',$program_id)
+                                    ->where('subject',$subject)
+                                    ->get();
+        $question_groups = [];
+        foreach($questions as $qs)
+        {
+            $question_groups[$qs->group_id][] =$qs;
+        }
+                                    
+        $data['question_groups'] =$question_groups;
+
+        return view('admin.answer-sheet-entry',$data);
+
     }
 }
