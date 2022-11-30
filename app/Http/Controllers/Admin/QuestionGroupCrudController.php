@@ -47,6 +47,7 @@ class QuestionGroupCrudController extends BaseCrudController
                 'label' => trans('Title (English)'),
                 'type' => 'text',
             ],
+            $this->addDisplayOrderColumn(),
         ];
         $this->crud->addColumns($cols);
     }
@@ -85,6 +86,7 @@ class QuestionGroupCrudController extends BaseCrudController
                     'class' => 'form-group col-md-6',
                 ],
             ],
+            $this->addDisplayOrderField(),
         ];
 
         $this->crud->addFields(array_filter($arr));

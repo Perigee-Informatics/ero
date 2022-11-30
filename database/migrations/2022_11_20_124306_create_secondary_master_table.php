@@ -74,6 +74,7 @@ class CreateSecondaryMasterTable extends Migration
             $table->id();
             $table->string('title_lc',200);
             $table->string('title_en',200)->nullable();
+            $table->unsignedSmallInteger('display_order')->default(0);
             $table->timestamps();
         });
     }

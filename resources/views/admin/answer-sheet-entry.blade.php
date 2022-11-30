@@ -76,13 +76,17 @@
                         <div class="row ml-5">
                             <div class="col-md-12">
                                 <div class="form-row py-2">
-                                    <div class="col text-black font-weight-bold"><span>Q.</span>{{$item->question_no}}</div>
-                                    @foreach($item->questionOptions as $option)
-                                        <div class="col option-label">
-                                            <input type="checkbox" id="option-{{$option->id}}" name="option[{{$option->id}}]">
-                                            <label for="option-{{$option->id}}">{{$option->title}}</label><br>
-                                        </div>
-                                    @endforeach
+                                    <div class="col-md-2 text-black font-weight-bold"><span>Q.</span>{{$item->question_no}}</div>
+                                    <div class="col-md-10">
+                                        <div class="form-row">
+                                            @foreach($item->questionOptions()->orderby('display_order')->get() as $option)
+                                                <div class="col-md-3 option-label">
+                                                    <input type="checkbox" id="option-{{$option->id}}" name="option[{{$option->id}}]">
+                                                    <label for="option-{{$option->id}}">{{$option->title}}</label><br>
+                                                </div>
+                                            @endforeach
+                                    </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

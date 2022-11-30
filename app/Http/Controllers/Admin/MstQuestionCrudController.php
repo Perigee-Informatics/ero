@@ -89,6 +89,20 @@ class MstQuestionCrudController extends BaseCrudController
                 'model'=>ReviewProfile::class,
                 'attribute'=>'program_name_lc',
             ],
+            [
+                'name'=>'subject',
+                'type'=>'select_from_array',
+                'label'=>trans('Subject'),
+                'options'=>MstClass::$subjects,
+            ],
+            [
+                'name'=>'class_id',
+                'type'=>'select',
+                'label'=>trans('Class'),
+                'entity'=>'classEntity',
+                'model'=>MstClass::class,
+                'attribute'=>'code',
+            ],
        
             [
                 'name'=>'group_id',
@@ -98,12 +112,7 @@ class MstQuestionCrudController extends BaseCrudController
                 'model'=>QuestionGroup::class,
                 'attribute'=>'title_lc',
             ],
-            [
-                'name'=>'subject',
-                'type'=>'select_from_array',
-                'label'=>trans('Subject'),
-                'options'=>MstClass::$subjects,
-            ],
+         
             [
                 'name'=>'question_no',
                 'type'=>'text',
@@ -132,6 +141,17 @@ class MstQuestionCrudController extends BaseCrudController
                     false=>'No',
                 ],
             ],
+            [
+                'name'=>'allow_multiple_options',
+                'type'=>'check',
+                'label'=>trans('Allow multiple option selection'),
+            ],
+            [
+                'name'=>'is_evaluation_type',
+                'type'=>'check',
+                'label'=>trans('Evaluation Type Question'),
+            ],
+            $this->addDisplayOrderColumn(),
         ];
 
         $this->crud->addColumns(array_filter($arr));
@@ -162,7 +182,33 @@ class MstQuestionCrudController extends BaseCrudController
                     'class' => 'form-group col-md-6',
                 ],
             ],
+            [
+                'name'=>'subject',
+                'type'=>'select_from_array',
+                'label'=>trans('Subject'),
+                'options'=>MstClass::$subjects,
+                'attributes'=>[
+                    'required' => 'required',
+                ],
+                'wrapper' => [
+                    'class' => 'form-group col-md-6',
+                ],
+            ],
        
+            [
+                'name'=>'class_id',
+                'type'=>'select2',
+                'label'=>trans('Class'),
+                'entity'=>'classEntity',
+                'model'=>MstClass::class,
+                'attribute'=>'code',
+                'attributes'=>[
+                    'required' => 'required',
+                ],
+                'wrapper' => [
+                    'class' => 'form-group col-md-4',
+                ],
+            ],
             [
                 'name'=>'group_id',
                 'type'=>'select2',
@@ -174,21 +220,10 @@ class MstQuestionCrudController extends BaseCrudController
                     'required' => 'required',
                 ],
                 'wrapper' => [
-                    'class' => 'form-group col-md-6',
-                ],
-            ],
-            [
-                'name'=>'subject',
-                'type'=>'select_from_array',
-                'label'=>trans('Subject'),
-                'options'=>MstClass::$subjects,
-                'attributes'=>[
-                    'required' => 'required',
-                ],
-                'wrapper' => [
                     'class' => 'form-group col-md-4',
                 ],
             ],
+           
             [
                 'name'=>'question_no',
                 'type'=>'number',
@@ -213,9 +248,37 @@ class MstQuestionCrudController extends BaseCrudController
                 ],
             ],
             [
+                'name'=>'allow_multiple_options',
+                'type'=>'checkbox',
+                'label'=>trans('<b>&nbsp;Allow multiple option selection.</b>'),
+                'attributes'=>[
+                    'id'=>'allow_multiple_options'
+                ],
+                'wrapper' => [
+                    'class' => 'form-group col-md-6',
+                ],
+            ],
+            [
+                'name'=>'is_evaluation_type',
+                'type'=>'checkbox',
+                'label'=>trans('<b>&nbsp;Evaluation Type Question</b>'),
+                'attributes'=>[
+                    'id'=>'is_evaluation_type'
+                ],
+                'wrapper' => [
+                    'class' => 'form-group col-md-6',
+                ],
+            ],
+            [
+                'name'=>'custom_html_1',
+                'type'=>'custom_html',
+                'value'=>'<hr/>'
+            ],
+
+            [
                 'name'=>'has_sub_questions',
                 'type'=>'checkbox',
-                'label'=>trans('<b>&nbsp;Has Sub-questions ?</b>'),
+                'label'=>trans('<b class="text-primary">&nbsp; ADD SUB-QUESTIONS</b>'),
                 'attributes'=>[
                     'id'=>'has_sub_questions'
                 ],
@@ -225,9 +288,14 @@ class MstQuestionCrudController extends BaseCrudController
                 'type'=>'custom.sub_questions',
             ],
             [
+                'name'=>'custom_html_2',
+                'type'=>'custom_html',
+                'value'=>'<hr/>'
+            ],
+            [
                 'name'=>'has_options',
                 'type'=>'checkbox',
-                'label'=>trans('<b>&nbsp;Has Options ?</b>'),
+                'label'=>trans('<b class="text-primary">&nbsp;ADD OPTIONS</b>'),
                 'attributes'=>[
                     'id'=>'has_options'
                 ],
@@ -236,6 +304,7 @@ class MstQuestionCrudController extends BaseCrudController
                 'name'=>'options',
                 'type'=>'custom.options',
             ],
+            $this->addDisplayOrderField(),
             
         ];
 
@@ -307,23 +376,32 @@ class MstQuestionCrudController extends BaseCrudController
         $request = $this->crud->validateRequest();
         DB::beginTransaction();
         try { 
-
             $item = $this->crud->update($request->get($this->crud->model->getKeyName()),$this->crud->getStrippedSaveRequest());
             $this->data['entry'] = $this->crud->entry = $item;
             if($item){
                 if(isset($request->sub_questions)){
-                    foreach($request->sub_questions as $key=>$q){
-                        if($q !=''){
-                            MstSubQuestion::updateOrCreate(['id'=>$key],['question_id'=>$item->id,'title'=>$q]);
+                    $insert_skeys = [];
+                    foreach($request->sub_questions['serial'] as $key=>$q){
+                        if($request->sub_questions['title'][$key] !=''){
+                            $insert_skeys[]=$key;
+                            MstSubQuestion::updateOrCreate(
+                                ['id'=>$key,'serial'=>$request->sub_questions['serial'][$key]],
+                                ['question_id'=>$item->id,'serial'=>$request->sub_questions['serial'][$key],'title'=>$request->sub_questions['title'][$key],'display_order'=>$request->sub_questions['display_order'][$key]]);
                         }
                     }
+                    MstSubQuestion::where('question_id',$item->id)->whereNotIn('id',$insert_skeys)->delete();
                 }
                 if(isset($request->options)){
-                    foreach($request->options as $key=>$q){
-                        if($q !=''){
-                            MstQuestionOption::updateOrCreate(['id'=>$key],['question_id'=>$item->id,'title'=>$q]);
+                    $insert_okeys = [];
+                    foreach($request->options['serial'] as $key=>$q){
+                        if($request->options['title'][$key] !=''){
+                            $insert_okeys[]=$key;
+                            MstQuestionOption::updateOrCreate(
+                                ['id'=>$key,'serial'=>$request->options['serial'][$key]],
+                                ['question_id'=>$item->id,'serial'=>$request->options['serial'][$key],'title'=>$request->options['title'][$key],'display_order'=>$request->options['display_order'][$key]]);
                         }
                     }
+                    MstQuestionOption::where('question_id',$item->id)->whereNotIn('id',$insert_okeys)->delete();
                 }
             }
             // show a success message
@@ -373,13 +451,22 @@ class MstQuestionCrudController extends BaseCrudController
         $data['gender'] = MstGender::all();
         $questions = MstQuestion::where('review_profile_id',$program_id)
                                     ->where('subject',$subject)
+                                    ->where('class_id',$class_id)
+                                    ->orderby('display_order')
                                     ->get();
+        $groups_order = QuestionGroup::orderby('display_order')->get()->pluck('title_lc')->toArray();                            
         $question_groups = [];
+        $question_groups_temp = [];
         foreach($questions as $qs)
         {
-            $question_groups[$qs->groupEntity->title_lc][] =$qs;
+            $question_groups_temp[$qs->groupEntity->title_lc][] =$qs;
         }
-                                    
+         // for ordering group wise data                
+        foreach($groups_order as $go){
+         if(array_key_exists($go,$question_groups_temp)){
+            $question_groups[$go]=$question_groups_temp[$go];
+         }
+        }
         $data['question_groups'] =$question_groups;
 
         return view('admin.answer-sheet-entry',$data);

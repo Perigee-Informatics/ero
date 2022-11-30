@@ -27,6 +27,7 @@ class MstQuestionRequest extends FormRequest
     {
         return [
             'review_profile_id' => 'required',
+            'class_id' => 'required',
             'group_id' => 'required',
             'question_no' => 'required',
             'title' => 'required',

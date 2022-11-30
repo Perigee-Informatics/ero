@@ -30,6 +30,7 @@ class QuestionGroupRequest extends FormRequest
             'code'=>'max:20',
             'title_lc'=>'required|max:200|unique:question_groups,title_lc'.$id_check,
             'title_en'=>'max:200|unique:question_groups,title_en'.$id_check,
+            'display_order'=>'required',
         ];
     }
 

@@ -4,28 +4,55 @@
 <div class="row" id="sub_questions_row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header bg-secondary p-2"><i class="fa fa-hospital-o" aria-hidden="true"></i> Sub-questions</div>
+            <div class="card-header text-dark bg-secondary p-2"><i class="fa fa-hospital-o" aria-hidden="true"></i> SUB-QUESTIONS</div>
             <div class="card-body p-0  m-2">
 
                 @if(isset($entry))
-                    @foreach($entry->subQuestions()->orderBy('created_at')->get() as $sub)
-                    <div class="col-md-12 pt-2">
-                        <input class="form-control" type="text" name="sub_questions[{{$sub->id}}]" value="{{$sub->title}}">
-                    </div>
+                    @foreach($entry->subQuestions()->orderBy('display_order')->get() as $sub)
+                    <div class="form-row">
+                        <div class="col-md-2 pt-2 d-inline-flex">
+                            <label class="pr-2">Serial</label>
+                            <input class="form-control" type="text" name="sub_questions[serial][{{$sub->id}}]" value="{{$sub->serial}}">
+                        </div>
+                        <div class="col-md-8 pt-2 d-inline-flex">
+                            <label class="pr-2">Title</label>
+                            <input class="form-control" type="text" name="sub_questions[title][{{$sub->id}}]" value="{{$sub->title}}">
+                        </div>
+                        <div class="col-md-2 pt-2 d-inline-flex">
+                            <label class="pr-2">Order</label>
+                            <input class="form-control" type="number" name="sub_questions[display_order][{{$sub->id}}]" value="{{$sub->display_order}}" min="0">
+                        </div>
+                    </div> 
                     @endforeach
                     <div class="form-row" id="sub_questions">
-                
-                        <div class="col-md-12 pt-2">
-                            <input class="form-control" type="text" name="sub_questions[]">
+                        <div class="col-md-2 pt-2 d-inline-flex">
+                            <label class="pr-2">Serial</label>
+                            <input class="form-control" type="text" name="sub_questions[serial][]">
                         </div>
-                        
+                        <div class="col-md-8 pt-2 d-inline-flex">
+                            <label class="pr-2">Title</label>
+                            <input class="form-control" type="text" name="sub_questions[title][]">
+                        </div>
+                        <div class="col-md-2 pt-2 d-inline-flex">
+                            <label class="pr-2">Order</label>
+                            <input class="form-control" type="number" name="sub_questions[display_order][]" min="0" value="0">
+                        </div>
                     </div> 
                 @else
 
                 <div class="form-row" id="sub_questions">
                 
-                    <div class="col-md-12 pt-2">
-                        <input class="form-control" type="text" name="sub_questions[]">
+                    <div class="col-md-2 pt-2 d-inline-flex">
+                        <label class="pr-2">Serial</label>
+                        <input class="form-control" type="text" name="sub_questions[serial][]">
+                    </div>
+                    <div class="col-md-8 pt-2 d-inline-flex">
+                        <label class="pr-2">Title</label>
+                        <input class="form-control" type="text" name="sub_questions[title][]">
+                    </div>
+                    <div class="col-md-2 pt-2 d-inline-flex">
+                        <label class="pr-2">Order</label>
+                        <input class="form-control" type="number" name="sub_questions[display_order][]" min="0" value="0">
                     </div>
                     
                 </div> 
@@ -47,8 +74,7 @@
             i += 1;
             let form = document.getElementById('sub_questions');
             let clone = form.cloneNode(true);
-            // clone.id = "sub_questions" + i;
-            $(clone).find("input").val("");
+            $(clone).find("input[type=text]").val("");
             form.parentNode.appendChild(clone);
         });
     });
